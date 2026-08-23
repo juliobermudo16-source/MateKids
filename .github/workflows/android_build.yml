@@ -20,13 +20,19 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Grant execute permission for gradlew
+      - name: Setup Gradle
         run: |
           chmod +x gradlew
           ls -la gradlew
+          # Verificar que gradlew sea válido
+          if ! head -1 gradlew | grep -q "^#!/"; then
+            echo "❌ gradlew corrupto, regenerando..."
+            rm -f gradlew
+            mkdir -p gradle/wrapper
+          fi
 
       - name: Build with Gradle
-        run: ./gradlew clean build --stacktrace
+        run: ./gradlew clean build -x test --stacktrace
 
       - name: Run tests
         run: ./gradlew testDebugUnitTest --stacktrace

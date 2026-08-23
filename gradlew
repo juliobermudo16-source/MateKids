@@ -15,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# SPDX-License-Identifier: Apache-2.0
-#
 
 ##############################################################################
 #
@@ -36,35 +34,22 @@
 #
 #       GRADLE_DEBUG=true ./gradlew <task>
 #
-#   (4) To use a proxy with the Gradle daemon, set the GRADLE_OPTS environment variable:
-#
-#       GRADLE_OPTS=-Dhttp.proxyHost=www.somehost.com -Dhttp.proxyPort=8080
-#
 ##############################################################################
 
 if [ "$(uname)" = "Darwin" ] ; then
     APP_PATH=$( cd "${APP_PATH%/*}" && pwd -P )/"${APP_PATH##*/}"
+else
+    APP_PATH=$( cd "${APP_PATH%/*}" && pwd -P )/"${APP_PATH##*/}"
     # For Cygwin or MSYS, switch paths to Windows format before running java
-    APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
-    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
+    case "$UNAME" in
+        CYGWIN*) APP_HOME=$(cygpath --path --mixed "$APP_HOME") ;;
+        MSYS*) APP_HOME=$(echo "$APP_HOME" | sed 's|\\|/|g') ;;
+    esac
+fi
 
-    JAVACMD=$( cygpath --unix "$JAVACMD" )
+APP_NAME="Gradle"
+APP_BASE_NAME=$(basename "$0")
 
-    # Now convert the arguments - kludge to limit ourselves to /bin/sh
-    for arg do
-        if
-            case $arg in
-                -*)   false ;;
-                /?*)   t=${arg#/} ; t=/${t%%/*}
-                       [ -e "$t" ] ;;
-                *)    true ;;
-            esac
-        then
-            arg=$( cygpath --path --mixed "$arg" )
-        fi
-        APP_ARGS=$APP_ARGS' '"$arg"
-    done
-                set -- $APP_ARGS
-            fi
-            exec "$JAVACMD" "$@"
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
+exec "$JAVACMD" "$@"
