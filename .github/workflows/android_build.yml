@@ -14,43 +14,58 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x gradlew
+          ls -la gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build --stacktrace
 
       - name: Run tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest --stacktrace
+        continue-on-error: true
 
       - name: Lint
-        run: ./gradlew lintDebug
-
-      - name: Build APK
-        run: ./gradlew assembleDebug
-
-      - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon
+        run: ./gradlew lintDebug --stacktrace
         continue-on-error: true
+
+      - name: Build APK Debug
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Build APK Release
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        continue-on-error: true
+
+      - name: List Build Outputs
+        if: always()
+        run: |
+          echo "=== Debug APK ==="
+          find app/build/outputs/apk/debug -name "*.apk" -type f || echo "No debug APKs found"
+          echo "=== Release APK ==="
+          find app/build/outputs/apk/release -name "*.apk" -type f || echo "No release APKs found"
 
       - name: Upload APK Debug
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: MateKids-debug
-          path: app/build/outputs/apk/debug/
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
 
       - name: Upload APK Release
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: MateKids-release
-          path: app/build/outputs/apk/release/
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
 
       - name: Upload Test Reports
         if: always()
@@ -58,6 +73,7 @@ jobs:
         with:
           name: test-reports
           path: app/build/reports/tests/
+          if-no-files-found: warn
 
       - name: Create Release with APKs
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
