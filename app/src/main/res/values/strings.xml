@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MateKids</string>
+    <string name="repara_el_nucleo">Repara El Núcleo</string>
+    <string name="bienvenida_matekids">Bienvenida a MateKids</string>
+    <string name="tu_mision">Tu misión: Reparar las máquinas resolviendo desafíos matemáticos</string>
+    <string name="comenzar_expedicion">Comenzar expedición</string>
+    <string name="sumadora_cuantica">Sumadora Cuántica</string>
+    <string name="restadora_equilibrio">Restadora de Equilibrio</string>
+    <string name="multiplicadora_energia">Multiplicadora de Energía</string>
+    <string name="divisora_precisa">Divisora Precisa</string>
+    <string name="calculo_mental">Cálculo Mental</string>
+    <string name="fabrica_desafios">Fábrica de Desafíos</string>
+    <string name="colecciones">Colecciones</string>
+    <string name="estadisticas">Estadísticas</string>
+    <string name="perfil">Perfil</string>
+    <string name="responder">Responder</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="continuar">Continuar</string>
+    <string name="correcto">¡Correcto!</string>
+    <string name="incorrecto">Incorrecto</string>
+    <string name="xp_ganado">XP Ganados</string>
+</resources>

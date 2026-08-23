@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Cuerpo central (esfera) -->
+    <circle
+        android:cx="60"
+        android:cy="60"
+        android:r="25"
+        android:fillColor="#5E60C0" />
+
+    <!-- Ojos -->
+    <circle
+        android:cx="50"
+        android:cy="55"
+        android:r="4"
+        android:fillColor="#FFFFFF" />
+
+    <circle
+        android:cx="70"
+        android:cy="55"
+        android:r="4"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Boca -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,70 Q60,75 65,70" />
+
+    <!-- Propelas (arriba) -->
+    <rect
+        android:x="55"
+        android:y="25"
+        android:width="10"
+        android:height="20"
+        android:fillColor="#F59E0B" />
+
+    <rect
+        android:x="55"
+        android:y="75"
+        android:width="10"
+        android:height="20"
+        android:fillColor="#F59E0B" />
+
+    <!-- Luz de energía -->
+    <circle
+        android:cx="60"
+        android:cy="45"
+        android:r="3"
+        android:fillColor="#10B981" />
+</vector>

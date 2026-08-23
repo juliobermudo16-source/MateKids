@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Cuerpo de la máquina -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M50,50 L150,50 L150,150 L50,150 Z" />
+
+    <!-- Borde -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#1E40AF"
+        android:strokeWidth="2"
+        android:pathData="M50,50 L150,50 L150,150 L50,150 Z" />
+
+    <!-- Pantalla -->
+    <path
+        android:fillColor="#E0E9FF"
+        android:pathData="M70,70 L130,70 L130,110 L70,110 Z" />
+
+    <!-- Dígitos en pantalla -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M85,85 L95,95 M95,85 L85,95" />
+
+    <!-- Botón -->
+    <circle
+        android:cx="100"
+        android:cy="135"
+        android:r="10"
+        android:fillColor="#F59E0B" />
+
+    <!-- Luz indicadora -->
+    <circle
+        android:cx="75"
+        android:cy="140"
+        android:r="4"
+        android:fillColor="#10B981" />
+</vector>
