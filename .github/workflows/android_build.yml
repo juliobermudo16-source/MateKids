@@ -19,15 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Download Gradle Wrapper JAR
-        run: |
-          mkdir -p gradle/wrapper
-          cd gradle/wrapper
-          # Download gradle-wrapper.jar from official Gradle repository
-          curl -L -o gradle-wrapper.jar "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"
-          ls -lh gradle-wrapper.jar
-          cd ../..
-
       - name: Build with Gradle Wrapper
         run: |
           chmod +x gradlew
