@@ -23,13 +23,15 @@ jobs:
       - name: Setup Gradle
         run: |
           chmod +x gradlew
-          ls -la gradlew
-          # Verificar que gradlew sea válido
-          if ! head -1 gradlew | grep -q "^#!/"; then
-            echo "❌ gradlew corrupto, regenerando..."
-            rm -f gradlew
-            mkdir -p gradle/wrapper
+          # Asegurar que gradle-wrapper.jar existe
+          mkdir -p gradle/wrapper
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "📥 Descargando gradle-wrapper.jar..."
+            cd gradle/wrapper
+            curl -L -o gradle-wrapper.jar https://github.com/gradle/gradle/releases/download/v8.2.0/gradle-wrapper.jar
+            cd ../..
           fi
+          ls -la gradlew gradle/wrapper/
 
       - name: Build with Gradle
         run: ./gradlew clean build -x test --stacktrace
