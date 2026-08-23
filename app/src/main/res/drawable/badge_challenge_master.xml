@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <circle android:cx="50" android:cy="50" android:r="45" android:fill="#DC2626" />
+    <circle android:cx="50" android:cy="50" android:r="45" android:fill="none" android:stroke="#991B1B" android:strokeWidth="2" />
+    <!-- Flaming torch -->
+    <rect android:x="45" android:y="45" android:width="10" android:height="20" android:fill="#8B4513" />
+    <path android:fillColor="#FBBF24" android:pathData="M 50 35 Q 40 25 50 10 Q 60 25 50 35" />
+    <path android:fillColor="#FCD34D" android:pathData="M 50 40 Q 45 30 50 20 Q 55 30 50 40" />
+    <circle android:cx="50" android:cy="80" android:r="2" android:fill="#FCD34D" />
+</vector>

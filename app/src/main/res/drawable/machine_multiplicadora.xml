@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Body -->
+    <path
+        android:fillColor="#EC4899"
+        android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
+    <!-- Border -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#BE185D"
+        android:strokeWidth="3"
+        android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
+    <!-- Display -->
+    <rect
+        android:x="50"
+        android:y="50"
+        android:width="100"
+        android:height="40"
+        android:fill="#E5E7EB" />
+    <!-- Multiply Symbol -->
+    <line
+        android:x1="80"
+        android:y1="85"
+        android:x2="120"
+        android:y2="115"
+        android:stroke="#000"
+        android:strokeWidth="2" />
+    <line
+        android:x1="120"
+        android:y1="85"
+        android:x2="80"
+        android:y2="115"
+        android:stroke="#000"
+        android:strokeWidth="2" />
+    <!-- Power Nodes -->
+    <circle
+        android:cx="70"
+        android:cy="140"
+        android:r="6"
+        android:fill="#10B981" />
+    <circle
+        android:cx="130"
+        android:cy="140"
+        android:r="6"
+        android:fill="#10B981" />
+</vector>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Outer reactor ring -->
+    <circle
+        android:cx="100"
+        android:cy="100"
+        android:r="80"
+        android:fill="none"
+        android:stroke="#DC2626"
+        android:strokeWidth="4" />
+    <!-- Middle ring -->
+    <circle
+        android:cx="100"
+        android:cy="100"
+        android:r="60"
+        android:fill="none"
+        android:stroke="#F97316"
+        android:strokeWidth="3" />
+    <!-- Inner core -->
+    <circle
+        android:cx="100"
+        android:cy="100"
+        android:r="40"
+        android:fill="#FBBF24" />
+    <!-- Core glow/energy -->
+    <circle
+        android:cx="100"
+        android:cy="100"
+        android:r="35"
+        android:fill="#FCD34D" />
+    <!-- Center point -->
+    <circle
+        android:cx="100"
+        android:cy="100"
+        android:r="15"
+        android:fill="#DC2626" />
+    <!-- Energy lines -->
+    <line
+        android:x1="100"
+        android:y1="30"
+        android:x2="100"
+        android:y2="50"
+        android:stroke="#DC2626"
+        android:strokeWidth="2" />
+    <line
+        android:x1="100"
+        android:y1="150"
+        android:x2="100"
+        android:y2="170"
+        android:stroke="#DC2626"
+        android:strokeWidth="2" />
+    <line
+        android:x1="30"
+        android:y1="100"
+        android:x2="50"
+        android:y2="100"
+        android:stroke="#DC2626"
+        android:strokeWidth="2" />
+    <line
+        android:x1="150"
+        android:y1="100"
+        android:x2="170"
+        android:y2="100"
+        android:stroke="#DC2626"
+        android:strokeWidth="2" />
+</vector>

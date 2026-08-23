@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Factory body -->
+    <rect
+        android:x="40"
+        android:y="80"
+        android:width="120"
+        android:height="80"
+        android:fill="#6366F1" />
+    <!-- Factory border -->
+    <rect
+        android:x="40"
+        android:y="80"
+        android:width="120"
+        android:height="80"
+        android:fill="none"
+        android:stroke="#4F46E5"
+        android:strokeWidth="3" />
+    <!-- Chimney 1 -->
+    <rect
+        android:x="60"
+        android:y="50"
+        android:width="15"
+        android:height="30"
+        android:fill="#374151" />
+    <!-- Chimney 2 -->
+    <rect
+        android:x="125"
+        android:y="55"
+        android:width="15"
+        android:height="25"
+        android:fill="#374151" />
+    <!-- Smoke -->
+    <circle
+        android:cx="68"
+        android:cy="45"
+        android:r="5"
+        android:fill="#D1D5DB" />
+    <circle
+        android:cx="133"
+        android:cy="50"
+        android:r="4"
+        android:fill="#D1D5DB" />
+    <!-- Output slots -->
+    <rect
+        android:x="55"
+        android:y="120"
+        android:width="12"
+        android:height="15"
+        android:fill="#000" />
+    <rect
+        android:x="75"
+        android:y="120"
+        android:width="12"
+        android:height="15"
+        android:fill="#000" />
+    <rect
+        android:x="95"
+        android:y="120"
+        android:width="12"
+        android:height="15"
+        android:fill="#000" />
+    <rect
+        android:x="115"
+        android:y="120"
+        android:width="12"
+        android:height="15"
+        android:fill="#000" />
+</vector>

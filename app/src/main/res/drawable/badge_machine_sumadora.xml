@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Badge background -->
+    <circle android:cx="50" android:cy="50" android:r="45" android:fill="#2563EB" />
+    <!-- Badge border -->
+    <circle android:cx="50" android:cy="50" android:r="45" android:fill="none" android:stroke="#1E40AF" android:strokeWidth="2" />
+    <!-- Plus symbol -->
+    <line android:x1="35" android:y1="50" android:x2="65" android:y2="50" android:stroke="#FFF" android:strokeWidth="3" />
+    <line android:x1="50" android:y1="35" android:x2="50" android:y2="65" android:stroke="#FFF" android:strokeWidth="3" />
+    <!-- Star -->
+    <path android:fillColor="#FCD34D" android:pathData="M 50 20 L 55 35 L 70 35 L 58 45 L 63 60 L 50 50 L 37 60 L 42 45 L 30 35 L 45 35 Z" />
+</vector>

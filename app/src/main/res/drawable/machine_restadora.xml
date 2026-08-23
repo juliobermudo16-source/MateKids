@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Body -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
+    <!-- Border -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#D97706"
+        android:strokeWidth="3"
+        android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
+    <!-- Display -->
+    <rect
+        android:x="50"
+        android:y="50"
+        android:width="100"
+        android:height="40"
+        android:fill="#E5E7EB" />
+    <!-- Minus Symbol -->
+    <line
+        android:x1="80"
+        android:y1="100"
+        android:x2="120"
+        android:y2="100"
+        android:stroke="#000"
+        android:strokeWidth="2" />
+    <!-- Input Hole -->
+    <circle
+        android:cx="100"
+        android:cy="130"
+        android:r="8"
+        android:fill="#1F2937" />
+    <!-- Output Lever -->
+    <rect
+        android:x="140"
+        android:y="125"
+        android:width="20"
+        android:height="10"
+        android:fill="#8B5CF6" />
+</vector>
