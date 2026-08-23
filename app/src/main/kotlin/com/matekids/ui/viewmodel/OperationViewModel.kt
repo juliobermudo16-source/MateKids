@@ -7,10 +7,12 @@ import com.matekids.data.repository.UserRepository
 import com.matekids.domain.model.Operation
 import com.matekids.domain.model.OperationType
 import com.matekids.domain.usecase.ResolveOperationUseCase
+import dagger.hilt.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class OperationUiState(
     val currentOperation: Operation? = null,
@@ -24,21 +26,19 @@ data class OperationUiState(
     val error: String? = null
 )
 
-class OperationViewModel(
+@HiltViewModel
+class OperationViewModel @Inject constructor(
     private val operationRepository: OperationRepository,
     private val userRepository: UserRepository,
-    private val resolveOperationUseCase: ResolveOperationUseCase,
-    private val operationType: OperationType
+    private val resolveOperationUseCase: ResolveOperationUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(OperationUiState())
     val uiState: StateFlow<OperationUiState> = _uiState.asStateFlow()
+    private var currentOperationType: OperationType = OperationType.SUM
 
-    init {
-        loadOperations()
-    }
-
-    private fun loadOperations() {
+    fun loadOperations(operationType: OperationType) {
+        currentOperationType = operationType
         viewModelScope.launch {
             try {
                 _uiState.value = _uiState.value.copy(isLoading = true)

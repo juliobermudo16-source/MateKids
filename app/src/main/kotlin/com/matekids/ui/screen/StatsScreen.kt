@@ -30,19 +30,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.matekids.ui.viewmodel.StatsViewModel
 
 @Composable
 fun StatsScreen(
     navController: NavHostController,
-    viewModel: StatsViewModel? = null
+    viewModel: StatsViewModel
 ) {
-    if (viewModel == null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("ViewModel no disponible")
-        }
-        return
-    }
-
     val uiState by viewModel.uiState.collectAsState()
 
     Column(

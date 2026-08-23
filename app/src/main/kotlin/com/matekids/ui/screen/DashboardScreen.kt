@@ -29,9 +29,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.matekids.domain.model.OperationType
+import com.matekids.ui.viewmodel.DashboardViewModel
 
 @Composable
-fun DashboardScreen(navController: NavHostController) {
+fun DashboardScreen(
+    navController: NavHostController,
+    viewModel: DashboardViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,7 +65,7 @@ fun DashboardScreen(navController: NavHostController) {
                 )
             }
 
-            IconButton(onClick = { /* TODO: Navigate to settings */ }) {
+            IconButton(onClick = { navController.navigate("profile") }) {
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = "Settings",
@@ -84,7 +89,16 @@ fun DashboardScreen(navController: NavHostController) {
                 MachineCard(
                     title = getMachineTitle(index),
                     isRepaired = false,
-                    onClick = { /* TODO: Navigate to machine screen */ }
+                    onClick = {
+                        when (index) {
+                            0 -> navController.navigate("operations/${OperationType.SUM}")
+                            1 -> navController.navigate("operations/${OperationType.SUBTRACT}")
+                            2 -> navController.navigate("operations/${OperationType.MULTIPLY}")
+                            3 -> navController.navigate("operations/${OperationType.DIVIDE}")
+                            4 -> navController.navigate("problems/1")
+                            5 -> navController.navigate("challenges")
+                        }
+                    }
                 )
             }
         }

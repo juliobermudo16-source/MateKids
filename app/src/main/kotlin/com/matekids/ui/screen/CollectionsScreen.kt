@@ -32,19 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.matekids.domain.model.Achievement
+import com.matekids.ui.viewmodel.CollectionViewModel
 
 @Composable
 fun CollectionsScreen(
     navController: NavHostController,
-    viewModel: CollectionViewModel? = null
+    viewModel: CollectionViewModel
 ) {
-    if (viewModel == null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("ViewModel no disponible")
-        }
-        return
-    }
-
     val uiState by viewModel.uiState.collectAsState()
 
     Column(

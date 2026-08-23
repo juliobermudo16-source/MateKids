@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,24 +31,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.matekids.domain.model.OperationType
+import com.matekids.ui.viewmodel.OperationViewModel
 
 @Composable
 fun OperationScreen(
     navController: NavHostController,
-    viewModel: OperationViewModel? = null
+    viewModel: OperationViewModel,
+    operationType: OperationType = OperationType.SUM
 ) {
-    if (viewModel == null) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("ViewModel no disponible")
-        }
-        return
-    }
-
     val uiState by viewModel.uiState.collectAsState()
     var userInput by remember { mutableStateOf("") }
+
+    LaunchedEffect(operationType) {
+        viewModel.loadOperations(operationType)
+    }
 
     Column(
         modifier = Modifier

@@ -1,77 +1,119 @@
-# ============================================
-# Script para subir MateKids a GitHub
-# Ejecutar: .\UPLOAD_TO_GITHUB.ps1
-# ============================================
+# Script para subir MateKids a GitHub con workflow automático
+# Uso: .\upload_to_github.ps1 -GitHubUser "tu_usuario"
 
-Write-Host ""
-Write-Host "================================" -ForegroundColor Cyan
-Write-Host "   MateKids - GitHub Upload" -ForegroundColor Cyan
-Write-Host "================================" -ForegroundColor Cyan
-Write-Host ""
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$GitHubUser,
+    [string]$RepoName = "MateKids"
+)
 
-# Pedir credenciales
-$GITHUB_USER = Read-Host "Ingresa tu usuario de GitHub"
-$GITHUB_EMAIL = Read-Host "Ingresa tu email de GitHub"
+Write-Host "╔════════════════════════════════════════╗" -ForegroundColor Cyan
+Write-Host "║  MateKids - GitHub Upload & Build CI  ║" -ForegroundColor Cyan
+Write-Host "╚════════════════════════════════════════╝" -ForegroundColor Cyan
 
-if ([string]::IsNullOrEmpty($GITHUB_USER)) {
-    Write-Host "Error: Usuario vacio" -ForegroundColor Red
+# Verificar git
+Write-Host "`n📋 Verificando requisitos..." -ForegroundColor Yellow
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "❌ Git no está instalado" -ForegroundColor Red
     exit 1
 }
 
-try {
-    # Paso 1: Configurar Git
-    Write-Host "[1/6] Configurando Git..." -ForegroundColor Yellow
-    & git config user.name "$GITHUB_USER"
-    & git config user.email "$GITHUB_EMAIL"
+Write-Host "✓ Git encontrado" -ForegroundColor Green
 
-    # Paso 2: Inicializar repositorio
-    Write-Host "[2/6] Inicializando repositorio..." -ForegroundColor Yellow
-    & git init
+# Ir al directorio del proyecto
+$projectDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $projectDir
+Write-Host "✓ Directorio: $projectDir" -ForegroundColor Green
 
-    # Paso 3: Agregar archivos
-    Write-Host "[3/6] Agregando archivos..." -ForegroundColor Yellow
-    & git add .
+# Verificar estado de Git
+Write-Host "`n📦 Estado del repositorio..." -ForegroundColor Yellow
+git status
 
-    # Paso 4: Primer commit
-    Write-Host "[4/6] Creando primer commit..." -ForegroundColor Yellow
-    & git commit -m "Initial commit: MateKids v1.0.0 - Aplicacion educativa de matematicas"
+# Preguntar si continuar
+Write-Host "`n¿Deseas continuar? (S/N)" -ForegroundColor Cyan
+$continue = Read-Host
 
-    # Paso 5: Agregar remoto
-    Write-Host "[5/6] Conectando con GitHub..." -ForegroundColor Yellow
-    $REPO_URL = "https://github.com/$GITHUB_USER/MateKids.git"
-    & git remote add origin $REPO_URL
-
-    # Paso 6: Cambiar a rama main
-    & git branch -M main
-
-    # Paso 7: Subir a GitHub
-    Write-Host "[6/6] Subiendo a GitHub (esto puede tardar)..." -ForegroundColor Yellow
-    & git push -u origin main
-
-    Write-Host ""
-    Write-Host "============================================" -ForegroundColor Green
-    Write-Host "SUCCESS! Codigo subido a GitHub" -ForegroundColor Green
-    Write-Host "============================================" -ForegroundColor Green
-    Write-Host ""
-    Write-Host "URL del repositorio:" -ForegroundColor Cyan
-    Write-Host $REPO_URL -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "Proximo paso:" -ForegroundColor Cyan
-    Write-Host "1. Ve a https://github.com/$GITHUB_USER/MateKids/actions" -ForegroundColor White
-    Write-Host "2. Espera a que termine la compilacion (verde checkmark)" -ForegroundColor White
-    Write-Host "3. Descarga los APKs desde Artifacts" -ForegroundColor White
-    Write-Host ""
-
-} catch {
-    Write-Host ""
-    Write-Host "ERROR! Algo salio mal:" -ForegroundColor Red
-    Write-Host $_.Exception.Message -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Soluciones:" -ForegroundColor Yellow
-    Write-Host "1. Verifica tu usuario de GitHub" -ForegroundColor White
-    Write-Host "2. Usa un token personal en lugar de contrasena" -ForegroundColor White
-    Write-Host "3. Configura SSH si lo prefieres" -ForegroundColor White
-    Write-Host ""
+if ($continue -ne "S" -and $continue -ne "s") {
+    Write-Host "❌ Operación cancelada" -ForegroundColor Red
+    exit 1
 }
 
-Read-Host "Presiona Enter para salir"
+# Añadir cambios
+Write-Host "`n📝 Preparando cambios..." -ForegroundColor Yellow
+git add -A
+Write-Host "✓ Archivos agregados" -ForegroundColor Green
+
+# Crear commit - Versión simplificada para PowerShell
+Write-Host "`n💾 Creando commit..." -ForegroundColor Yellow
+git commit -m "feat: MateKids v1.0.0 - Release inicial con CI/CD automático"
+Write-Host "✓ Commit creado" -ForegroundColor Green
+
+# Configurar remote
+Write-Host "`n🌐 Configurando remoto GitHub..." -ForegroundColor Yellow
+$remoteUrl = "https://github.com/$GitHubUser/$RepoName.git"
+
+# Verificar si remote ya existe
+$remoteExists = git remote get-url origin 2>$null
+if ($null -ne $remoteExists) {
+    Write-Host "⚠️  Remote 'origin' ya existe" -ForegroundColor Yellow
+    git remote remove origin
+    Write-Host "✓ Remote anterior removido" -ForegroundColor Green
+}
+
+git remote add origin $remoteUrl
+Write-Host "✓ Remote configurado: $remoteUrl" -ForegroundColor Green
+
+# Renombrar rama a main
+Write-Host "`n🔄 Configurando rama principal..." -ForegroundColor Yellow
+$currentBranch = git rev-parse --abbrev-ref HEAD
+if ($currentBranch -ne "main") {
+    git branch -M main
+    Write-Host "✓ Rama renombrada a main" -ForegroundColor Green
+} else {
+    Write-Host "✓ Ya estamos en rama main" -ForegroundColor Green
+}
+
+# Subir al repositorio
+Write-Host "`n📤 Subiendo al repositorio..." -ForegroundColor Yellow
+Write-Host "   Esto puede tomar un momento..." -ForegroundColor Gray
+
+try {
+    git push -u origin main
+    Write-Host "✓ Código subido exitosamente" -ForegroundColor Green
+} catch {
+    Write-Host "❌ Error al subir: $_" -ForegroundColor Red
+    Write-Host "`n💡 Verifica que:" -ForegroundColor Yellow
+    Write-Host "   1. El repositorio existe en GitHub"
+    Write-Host "   2. Tienes permisos de push"
+    Write-Host "   3. Tu usuario y contraseña son correctos"
+    exit 1
+}
+
+# Resumen final
+Write-Host "`n╔════════════════════════════════════════╗" -ForegroundColor Green
+Write-Host "║  ✅ ¡LISTO PARA USAR CI/CD!           ║" -ForegroundColor Green
+Write-Host "╚════════════════════════════════════════╝" -ForegroundColor Green
+
+Write-Host "`n📊 Información:" -ForegroundColor Cyan
+Write-Host "   Repositorio: $remoteUrl" -ForegroundColor White
+Write-Host "   Rama: main" -ForegroundColor White
+Write-Host "   Usuario: $GitHubUser" -ForegroundColor White
+
+Write-Host "`n🚀 GitHub Actions está configurado:" -ForegroundColor Cyan
+Write-Host "   ✓ Se ejecuta automáticamente en cada push" -ForegroundColor Green
+Write-Host "   ✓ Compila el proyecto" -ForegroundColor Green
+Write-Host "   ✓ Ejecuta tests" -ForegroundColor Green
+Write-Host "   ✓ Genera APK debug y release" -ForegroundColor Green
+Write-Host "   ✓ Crea Release automático en GitHub" -ForegroundColor Green
+
+Write-Host "`n📦 Acceder a los APKs:" -ForegroundColor Cyan
+Write-Host "   1. Ve a: https://github.com/$GitHubUser/$RepoName" -ForegroundColor White
+Write-Host "   2. Click en 'Releases'" -ForegroundColor White
+Write-Host "   3. Descarga los APKs" -ForegroundColor White
+
+Write-Host "`n💡 Próximos pasos:" -ForegroundColor Cyan
+Write-Host "   - Verifica que el workflow se ejecute en GitHub Actions" -ForegroundColor White
+Write-Host "   - Descarga los APKs generados" -ForegroundColor White
+Write-Host "   - Instala el APK debug en tu dispositivo para probar" -ForegroundColor White
+
+Write-Host "`n" -ForegroundColor White

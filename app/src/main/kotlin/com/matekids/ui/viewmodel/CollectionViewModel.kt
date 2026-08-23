@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matekids.data.repository.AchievementRepository
 import com.matekids.domain.model.Achievement
+import dagger.hilt.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class CollectionUiState(
     val achievements: List<Achievement> = emptyList(),
@@ -17,7 +19,8 @@ data class CollectionUiState(
     val error: String? = null
 )
 
-class CollectionViewModel(
+@HiltViewModel
+class CollectionViewModel @Inject constructor(
     private val achievementRepository: AchievementRepository
 ) : ViewModel() {
 

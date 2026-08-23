@@ -59,6 +59,33 @@ jobs:
           name: test-reports
           path: app/build/reports/tests/
 
+      - name: Create Release with APKs
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/release/app-release-unsigned.apk
+          tag_name: v1.0.0-build-${{ github.run_number }}
+          name: MateKids v1.0.0 Build #${{ github.run_number }}
+          body: |
+            🎉 **MateKids v1.0.0** - Build #${{ github.run_number }}
+
+            📦 **APKs Disponibles:**
+            - `app-debug.apk` - Versión de desarrollo
+            - `app-release-unsigned.apk` - Versión release
+
+            **Plataforma:** Android 7.0+ (API 24)
+
+            ✅ Build completado exitosamente
+            🧪 Tests pasados
+
+            [Ver cambios en GitHub](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Comment PR with Build Status
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
@@ -68,5 +95,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Build completado exitosamente\n\n📦 APKs disponibles en Artifacts'
+              body: '✅ Build completado exitosamente\n\n📦 APKs disponibles en Artifacts\n\n🔗 [Ver en GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})'
             })
