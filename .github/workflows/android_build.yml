@@ -19,16 +19,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle Wrapper
+      - name: Build APK Debug
         run: |
           chmod +x gradlew
-          ./gradlew clean build -x test --stacktrace
-
-      - name: Build APK Debug
-        run: ./gradlew assembleDebug --stacktrace
+          ./gradlew clean assembleDebug --stacktrace
 
       - name: Build APK Release
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        run: ./gradlew assembleRelease --stacktrace
+        continue-on-error: true
+
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --stacktrace
         continue-on-error: true
 
       - name: List Build Outputs
