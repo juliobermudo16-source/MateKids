@@ -112,6 +112,6 @@ class OperationViewModel @Inject constructor(
 
     fun nextOperation() {
         _uiState.value = _uiState.value.copy(userAnswer = "", feedback = "")
-        loadOperations()
+        loadOperations(currentOperationType)
     }
 }

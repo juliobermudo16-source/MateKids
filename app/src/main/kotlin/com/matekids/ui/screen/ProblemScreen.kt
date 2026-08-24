@@ -90,7 +90,8 @@ fun ProblemScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (uiState.currentProblem != null) {
+            val problem = uiState.currentProblem
+            if (problem != null) {
                 // Difficulty Level
                 Box(
                     modifier = Modifier
@@ -102,7 +103,7 @@ fun ProblemScreen(
                         .padding(12.dp)
                 ) {
                     Text(
-                        text = "Dificultad: ${uiState.currentProblem.getDifficultyLabel()}",
+                        text = "Dificultad: ${problem.getDifficultyLabel()}",
                         color = Color.White,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
@@ -120,7 +121,7 @@ fun ProblemScreen(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = uiState.currentProblem.description,
+                        text = problem.description,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal

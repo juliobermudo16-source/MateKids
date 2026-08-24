@@ -89,7 +89,8 @@ fun OperationScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Operation Display
-            if (uiState.currentOperation != null) {
+            val operation = uiState.currentOperation
+            if (operation != null) {
                 Box(
                     modifier = Modifier
                         .size(200.dp)
@@ -100,7 +101,7 @@ fun OperationScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = uiState.currentOperation.getDisplayText(),
+                        text = operation.getDisplayText(),
                         color = Color.White,
                         fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
