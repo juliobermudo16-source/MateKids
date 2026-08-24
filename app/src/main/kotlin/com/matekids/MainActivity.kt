@@ -24,6 +24,7 @@ import com.matekids.ui.screen.CollectionsScreen
 import com.matekids.ui.screen.DashboardScreen
 import com.matekids.ui.screen.PathScreen
 import com.matekids.ui.screen.LessonScreen
+import com.matekids.ui.screen.OnboardingScreen
 import com.matekids.ui.screen.OperationScreen
 import com.matekids.ui.screen.ProblemScreen
 import com.matekids.ui.screen.ProfileScreen
@@ -35,6 +36,9 @@ import com.matekids.ui.viewmodel.DashboardViewModel
 import com.matekids.ui.viewmodel.OperationViewModel
 import com.matekids.ui.viewmodel.PathViewModel
 import com.matekids.ui.viewmodel.LessonViewModel
+import com.matekids.ui.viewmodel.OnboardingViewModel
+import com.matekids.ui.viewmodel.StartDestination
+import com.matekids.ui.viewmodel.StartupViewModel
 import com.matekids.ui.viewmodel.ProblemViewModel
 import com.matekids.ui.viewmodel.ProfileViewModel
 import com.matekids.ui.viewmodel.StatsViewModel
@@ -65,10 +69,37 @@ fun MateKidsApp() {
         startDestination = "splash"
     ) {
         composable("splash") {
+            val startupViewModel: StartupViewModel = hiltViewModel()
+            val destination by startupViewModel.destination.collectAsState()
+
             SplashScreen(
                 onNavigateToDashboard = {
-                    navController.navigate("path") {
+                    // La primera vez se pasa por el alta de perfil; despues, no.
+                    val ruta = if (destination == StartDestination.ONBOARDING) {
+                        "onboarding"
+                    } else {
+                        "path"
+                    }
+                    navController.navigate(ruta) {
                         popUpTo("splash") { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable("onboarding") {
+            val viewModel: OnboardingViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsState()
+
+            OnboardingScreen(
+                uiState = uiState,
+                onAliasChange = viewModel::onAliasChange,
+                onAvatarSelected = viewModel::onAvatarSelected,
+                onContinue = {
+                    viewModel.save {
+                        navController.navigate("path") {
+                            popUpTo("onboarding") { inclusive = true }
+                        }
                     }
                 }
             )

@@ -3,6 +3,7 @@ package com.matekids.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matekids.data.repository.PathProgressRepository
+import com.matekids.data.repository.UserRepository
 import com.matekids.domain.model.LearningPath
 import com.matekids.domain.model.Lesson
 import com.matekids.domain.model.LessonState
@@ -36,6 +37,8 @@ data class PathUiState(
     val completedCount: Int = 0,
     val totalLessons: Int = 0,
     val nextLesson: Lesson? = null,
+    val alias: String = "",
+    val avatarId: String = "",
     val isLoading: Boolean = true
 )
 
@@ -47,7 +50,8 @@ data class PathUiState(
  */
 @HiltViewModel
 class PathViewModel @Inject constructor(
-    private val progressRepository: PathProgressRepository
+    private val progressRepository: PathProgressRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val path: LearningPath = MathCurriculum.path()
@@ -57,6 +61,19 @@ class PathViewModel @Inject constructor(
 
     init {
         observeProgress()
+        observeProfile()
+    }
+
+    /** El avatar y el apodo elegidos se ven en la cabecera del camino. */
+    private fun observeProfile() {
+        viewModelScope.launch {
+            userRepository.getUserProfile().collect { perfil ->
+                _uiState.value = _uiState.value.copy(
+                    alias = perfil.alias,
+                    avatarId = perfil.avatar
+                )
+            }
+        }
     }
 
     private fun observeProgress() {
@@ -78,7 +95,9 @@ class PathViewModel @Inject constructor(
             )
         }
 
-        return PathUiState(
+        // copy sobre el estado actual: si se construyera uno nuevo se perderia
+        // el perfil, que llega por otro flujo.
+        return _uiState.value.copy(
             sections = sections,
             overallProgress = path.overallProgress(progress),
             completedCount = progress.completed.size,

@@ -16,8 +16,21 @@ class UserRepository(private val userDao: UserDao) {
         userDao.updateUser(user.toEntity())
     }
 
+    /**
+     * Perfil del nino. Mientras no haya terminado el onboarding la tabla esta
+     * vacia y Room emite null, asi que se devuelve un perfil por defecto en
+     * lugar de reventar.
+     */
     fun getUserProfile(): Flow<UserProfile> {
-        return userDao.getUserProfile().map { it.toDomain() }
+        return userDao.getUserProfile().map { it?.toDomain() ?: UserProfile() }
+    }
+
+    /** True cuando todavia no se ha creado ningun perfil. */
+    suspend fun hasProfile(): Boolean = userDao.getUserProfileSync() != null
+
+    /** Crea el perfil con lo elegido en el onboarding. */
+    suspend fun createProfile(alias: String, avatar: String) {
+        saveUser(UserProfile(alias = alias.ifBlank { "Explorador" }, avatar = avatar))
     }
 
     suspend fun getUserProfileSync(): UserProfile? {

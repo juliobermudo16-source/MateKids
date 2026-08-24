@@ -35,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.matekids.domain.model.LessonState
+import com.matekids.ui.component.AvatarBadge
+import com.matekids.ui.theme.Avatars
 import com.matekids.ui.theme.PathColors
 import com.matekids.ui.viewmodel.LessonNode
 import com.matekids.ui.viewmodel.PathUiState
@@ -54,6 +56,8 @@ fun PathScreen(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         PathHeader(
+            alias = uiState.alias,
+            avatarId = uiState.avatarId,
             completed = uiState.completedCount,
             total = uiState.totalLessons,
             progress = uiState.overallProgress,
@@ -84,6 +88,8 @@ fun PathScreen(
 /** Cabecera fija con el avance global. */
 @Composable
 private fun PathHeader(
+    alias: String,
+    avatarId: String,
     completed: Int,
     total: Int,
     progress: Float,
@@ -106,7 +112,7 @@ private fun PathHeader(
             ) {
                 Column {
                     Text(
-                        text = "Tu camino",
+                        text = if (alias.isBlank()) "Tu camino" else "Hola, $alias",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -119,17 +125,11 @@ private fun PathHeader(
                 }
                 Box(
                     modifier = Modifier
-                        .size(44.dp)
-                        .background(MaterialTheme.colorScheme.primary, CircleShape)
+                        .size(48.dp)
                         .clickable(onClick = onProfileClick),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "M",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+                    AvatarBadge(avatar = Avatars.byId(avatarId), size = 44.dp)
                 }
             }
 

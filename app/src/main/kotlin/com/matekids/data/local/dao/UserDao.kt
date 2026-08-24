@@ -16,7 +16,7 @@ interface UserDao {
     suspend fun updateUser(user: UserProfileEntity)
 
     @Query("SELECT * FROM user_profiles WHERE id = 1")
-    fun getUserProfile(): Flow<UserProfileEntity>
+    fun getUserProfile(): Flow<UserProfileEntity?>
 
     @Query("SELECT * FROM user_profiles WHERE id = 1")
     suspend fun getUserProfileSync(): UserProfileEntity?
