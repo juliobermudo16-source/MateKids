@@ -112,10 +112,31 @@ class LearningPathTest {
     }
 
     @Test
-    fun `la dificultad no baja al avanzar de unidad`() {
-        val porUnidad = path.units.sortedBy { it.order }
-            .map { unit -> unit.lessons.maxOf { it.difficulty } }
-        assertEquals(porUnidad.sorted(), porUnidad, "la dificultad retrocede entre unidades")
+    fun `dentro de cada unidad la dificultad nunca retrocede`() {
+        path.units.forEach { unit ->
+            val niveles = unit.lessons.sortedBy { it.index }.map { it.difficulty }
+            assertEquals(niveles.sorted(), niveles, "la dificultad baja dentro de ${unit.id}")
+        }
+    }
+
+    @Test
+    fun `al repetir destreza se retoma donde se dejo`() {
+        // Entre unidades si puede bajar: estrenar las tablas de multiplicar
+        // despues de dominar las sumas con llevadas debe empezar suave. Lo que
+        // no vale es que una destreza ya trabajada vuelva atras.
+        path.units.groupBy { it.skill }
+            .filterValues { it.size > 1 }
+            .forEach { (skill, unidades) ->
+                val topes = unidades.sortedBy { it.order }
+                    .map { unit -> unit.lessons.maxOf { it.difficulty } }
+                assertEquals(topes.sorted(), topes, "la destreza $skill retrocede")
+            }
+    }
+
+    @Test
+    fun `el camino llega a la dificultad maxima`() {
+        val tope = path.lessonsInOrder().maxOf { it.difficulty }
+        assertEquals(3, tope, "el camino nunca alcanza el nivel mas alto")
     }
 
     @Test

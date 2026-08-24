@@ -29,43 +29,49 @@ class OperationRepositoryTest {
     }
 
     @Test
-    fun testSaveOperation() = runBlocking {
-        val operation = Operation(
-            type = OperationType.SUM,
-            operand1 = 5,
-            operand2 = 3,
-            correctAnswer = 8
-        )
+    fun testSaveOperation() {
+        runBlocking {
+            val operation = Operation(
+                type = OperationType.SUM,
+                operand1 = 5,
+                operand2 = 3,
+                correctAnswer = 8
+            )
 
-        whenever(dao.insertOperation(operation.toEntity())).thenReturn(1L)
+            whenever(dao.insertOperation(operation.toEntity())).thenReturn(1L)
 
-        val result = repository.saveOperation(operation)
+            val result = repository.saveOperation(operation)
 
-        assertEquals(1L, result)
-    }
-
-    @Test
-    fun testGetOperationsByType() = runBlocking {
-        val entities = listOf(
-            OperationEntity(type = "SUM", operand1 = 2, operand2 = 3, correctAnswer = 5)
-        )
-
-        whenever(dao.getOperationsByType("SUM")).thenReturn(flowOf(entities))
-
-        repository.getOperationsByType(OperationType.SUM).collect { ops ->
-            assertEquals(1, ops.size)
-            assertEquals(OperationType.SUM, ops[0].type)
+            assertEquals(1L, result)
         }
     }
 
     @Test
-    fun testGetOperationCount() = runBlocking {
-        whenever(dao.getOperationCount()).thenReturn(10)
+    fun testGetOperationsByType() {
+        runBlocking {
+            val entities = listOf(
+                OperationEntity(type = "SUM", operand1 = 2, operand2 = 3, correctAnswer = 5)
+            )
 
-        val count = repository.getOperationCount()
+            whenever(dao.getOperationsByType("SUM")).thenReturn(flowOf(entities))
 
-        assertEquals(10, count)
-        verify(dao).getOperationCount()
+            repository.getOperationsByType(OperationType.SUM).collect { ops ->
+                assertEquals(1, ops.size)
+                assertEquals(OperationType.SUM, ops[0].type)
+            }
+        }
+    }
+
+    @Test
+    fun testGetOperationCount() {
+        runBlocking {
+            whenever(dao.getOperationCount()).thenReturn(10)
+
+            val count = repository.getOperationCount()
+
+            assertEquals(10, count)
+            verify(dao).getOperationCount()
+        }
     }
 
     private fun Operation.toEntity() = OperationEntity(

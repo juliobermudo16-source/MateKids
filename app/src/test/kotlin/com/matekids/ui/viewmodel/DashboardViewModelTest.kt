@@ -5,7 +5,9 @@ import com.matekids.domain.model.UserProfile
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import com.matekids.util.MainDispatcherRule
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -14,6 +16,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class DashboardViewModelTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
     private lateinit var userRepository: UserRepository
@@ -27,12 +32,14 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun testLoadDashboardDataSuccess() = runBlocking {
-        val perfil = UserProfile(alias = "Ana", totalXP = 120, level = 3)
-        whenever(userRepository.getUserProfile()).thenReturn(flowOf(perfil))
+    fun testLoadDashboardDataSuccess() {
+        runBlocking {
+            val perfil = UserProfile(alias = "Ana", totalXP = 120, level = 3)
+            whenever(userRepository.getUserProfile()).thenReturn(flowOf(perfil))
 
-        assertEquals("Ana", userRepository.getUserProfile().first().alias)
-        assertNotNull(viewModel.uiState.value)
+            assertEquals("Ana", userRepository.getUserProfile().first().alias)
+            assertNotNull(viewModel.uiState.value)
+        }
     }
 
     @Test

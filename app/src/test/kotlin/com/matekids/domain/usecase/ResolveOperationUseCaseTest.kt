@@ -30,35 +30,39 @@ class ResolveOperationUseCaseTest {
     }
 
     @Test
-    fun testCorrectOperationResolution() = runBlocking {
-        val operation = Operation(
-            type = OperationType.SUM,
-            operand1 = 5,
-            operand2 = 3,
-            correctAnswer = 8
-        )
+    fun testCorrectOperationResolution() {
+        runBlocking {
+            val operation = Operation(
+                type = OperationType.SUM,
+                operand1 = 5,
+                operand2 = 3,
+                correctAnswer = 8
+            )
 
-        whenever(userRepository.getUserProfileSync()).thenReturn(
-            UserProfile()
-        )
+            whenever(userRepository.getUserProfileSync()).thenReturn(
+                UserProfile()
+            )
 
-        val result = useCase.execute(operation, 8)
+            val result = useCase.execute(operation, 8)
 
-        assertTrue(result is ResolveOperationUseCase.ResolveOperationResult.Success)
+            assertTrue(result is ResolveOperationUseCase.ResolveOperationResult.Success)
+        }
     }
 
     @Test
-    fun testIncorrectOperationResolution() = runBlocking {
-        val operation = Operation(
-            type = OperationType.SUM,
-            operand1 = 5,
-            operand2 = 3,
-            correctAnswer = 8
-        )
+    fun testIncorrectOperationResolution() {
+        runBlocking {
+            val operation = Operation(
+                type = OperationType.SUM,
+                operand1 = 5,
+                operand2 = 3,
+                correctAnswer = 8
+            )
 
-        val result = useCase.execute(operation, 7)
+            val result = useCase.execute(operation, 7)
 
-        assertTrue(result is ResolveOperationUseCase.ResolveOperationResult.Failure)
+            assertTrue(result is ResolveOperationUseCase.ResolveOperationResult.Failure)
+        }
     }
 
     @Test

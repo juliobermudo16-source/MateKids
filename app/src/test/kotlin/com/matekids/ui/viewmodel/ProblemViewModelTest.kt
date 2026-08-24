@@ -4,7 +4,9 @@ import com.matekids.data.repository.ProblemRepository
 import com.matekids.data.repository.UserRepository
 import com.matekids.domain.usecase.ResolveProblemUseCase
 import kotlinx.coroutines.runBlocking
+import com.matekids.util.MainDispatcherRule
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -13,6 +15,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class ProblemViewModelTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Mock
     private lateinit var problemRepository: ProblemRepository
@@ -32,12 +37,14 @@ class ProblemViewModelTest {
     }
 
     @Test
-    fun testLoadProblemsSuccess() = runBlocking {
-        whenever(problemRepository.getProblemCount()).thenReturn(10)
+    fun testLoadProblemsSuccess() {
+        runBlocking {
+            whenever(problemRepository.getProblemCount()).thenReturn(10)
 
-        viewModel.loadProblems(difficulty = 1)
+            viewModel.loadProblems(difficulty = 1)
 
-        assertNotNull(viewModel.uiState.value.currentProblem)
+            assertNotNull(viewModel.uiState.value.currentProblem)
+        }
     }
 
     @Test
