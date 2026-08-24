@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.matekids.data.local.dao.AchievementDao
+import com.matekids.data.local.dao.LessonProgressDao
 import com.matekids.data.local.dao.OperationDao
 import com.matekids.data.local.dao.ProblemDao
 import com.matekids.data.local.dao.UserDao
 import com.matekids.data.local.entity.AchievementEntity
+import com.matekids.data.local.entity.LessonProgressEntity
 import com.matekids.data.local.entity.OperationEntity
 import com.matekids.data.local.entity.ProblemEntity
 import com.matekids.data.local.entity.UserProfileEntity
@@ -18,9 +20,10 @@ import com.matekids.data.local.entity.UserProfileEntity
         OperationEntity::class,
         ProblemEntity::class,
         UserProfileEntity::class,
-        AchievementEntity::class
+        AchievementEntity::class,
+        LessonProgressEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class MateKidsDatabase : RoomDatabase() {
@@ -28,6 +31,7 @@ abstract class MateKidsDatabase : RoomDatabase() {
     abstract fun problemDao(): ProblemDao
     abstract fun userDao(): UserDao
     abstract fun achievementDao(): AchievementDao
+    abstract fun lessonProgressDao(): LessonProgressDao
 
     companion object {
         @Volatile

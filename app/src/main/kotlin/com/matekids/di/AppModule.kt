@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.matekids.data.local.MateKidsDatabase
 import com.matekids.data.local.dao.AchievementDao
+import com.matekids.data.local.dao.LessonProgressDao
 import com.matekids.data.local.dao.OperationDao
 import com.matekids.data.local.dao.ProblemDao
 import com.matekids.data.local.dao.UserDao
@@ -58,6 +59,12 @@ object AppModule {
     @Provides
     fun provideAchievementDao(database: MateKidsDatabase): AchievementDao {
         return database.achievementDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLessonProgressDao(database: MateKidsDatabase): LessonProgressDao {
+        return database.lessonProgressDao()
     }
 
     @Singleton
