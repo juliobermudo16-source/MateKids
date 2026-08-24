@@ -18,30 +18,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.matekids.domain.model.OperationType
-import com.matekids.ui.screen.ChallengeScreen
-import com.matekids.ui.screen.CollectionsScreen
-import com.matekids.ui.screen.DashboardScreen
 import com.matekids.ui.screen.PathScreen
 import com.matekids.ui.screen.LessonScreen
 import com.matekids.ui.screen.OnboardingScreen
-import com.matekids.ui.screen.OperationScreen
-import com.matekids.ui.screen.ProblemScreen
 import com.matekids.ui.screen.ProfileScreen
 import com.matekids.ui.screen.SplashScreen
-import com.matekids.ui.screen.StatsScreen
 import com.matekids.ui.theme.MateKidsTheme
-import com.matekids.ui.viewmodel.CollectionViewModel
-import com.matekids.ui.viewmodel.DashboardViewModel
-import com.matekids.ui.viewmodel.OperationViewModel
 import com.matekids.ui.viewmodel.PathViewModel
 import com.matekids.ui.viewmodel.LessonViewModel
 import com.matekids.ui.viewmodel.OnboardingViewModel
 import com.matekids.ui.viewmodel.StartDestination
 import com.matekids.ui.viewmodel.StartupViewModel
-import com.matekids.ui.viewmodel.ProblemViewModel
 import com.matekids.ui.viewmodel.ProfileViewModel
-import com.matekids.ui.viewmodel.StatsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -135,60 +123,10 @@ fun MateKidsApp() {
             )
         }
 
-        composable("dashboard") {
-            val viewModel: DashboardViewModel = hiltViewModel()
-            DashboardScreen(navController = navController, viewModel = viewModel)
-        }
-
-        composable(
-            "operations/{type}",
-            arguments = listOf(
-                navArgument("type") { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val operationType = backStackEntry.arguments?.getString("type")?.let {
-                OperationType.valueOf(it)
-            } ?: OperationType.SUM
-            val viewModel: OperationViewModel = hiltViewModel()
-            OperationScreen(
-                navController = navController,
-                viewModel = viewModel,
-                operationType = operationType
-            )
-        }
-
-        composable(
-            "problems/{difficulty}",
-            arguments = listOf(
-                navArgument("difficulty") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            val difficulty = backStackEntry.arguments?.getInt("difficulty") ?: 1
-            val viewModel: ProblemViewModel = hiltViewModel()
-            ProblemScreen(
-                navController = navController,
-                viewModel = viewModel,
-                difficulty = difficulty
-            )
-        }
-
         composable("profile") {
             val viewModel: ProfileViewModel = hiltViewModel()
             ProfileScreen(navController = navController, viewModel = viewModel)
         }
 
-        composable("challenges") {
-            ChallengeScreen(navController = navController)
-        }
-
-        composable("stats") {
-            val viewModel: StatsViewModel = hiltViewModel()
-            StatsScreen(navController = navController, viewModel = viewModel)
-        }
-
-        composable("collections") {
-            val viewModel: CollectionViewModel = hiltViewModel()
-            CollectionsScreen(navController = navController, viewModel = viewModel)
-        }
     }
 }
