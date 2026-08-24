@@ -155,7 +155,7 @@ class LessonViewModel @Inject constructor(
         // 50 XP por nivel, como define UserProfile.getNextLevelXP().
         val nivel = (nuevoTotal / 50L).toInt() + 1
         // Se pasan los XP ganados, no el total: la consulta ya hace la suma.
-        userRepository.updateXPAndLevel(ganados, nivel)
+        userRepository.updateXPAndLevel(ganados.toLong(), nivel)
     }
 
     /**
