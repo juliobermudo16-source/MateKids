@@ -10,7 +10,6 @@
         android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
     <!-- Border -->
     <path
-        android:fillColor="none"
         android:strokeColor="#BE185D"
         android:strokeWidth="3"
         android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />

@@ -12,7 +12,6 @@
 
     <!-- Borde -->
     <path
-        android:fillColor="none"
         android:strokeColor="#1E40AF"
         android:strokeWidth="2"
         android:pathData="M50,50 L150,50 L150,150 L50,150 Z" />
