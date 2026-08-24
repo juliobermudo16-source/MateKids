@@ -6,7 +6,7 @@ import com.matekids.data.repository.ProblemRepository
 import com.matekids.data.repository.UserRepository
 import com.matekids.domain.model.Problem
 import com.matekids.domain.usecase.ResolveProblemUseCase
-import dagger.hilt.lifecycle.HiltViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

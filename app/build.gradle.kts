@@ -78,6 +78,7 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
 
     // Serialization

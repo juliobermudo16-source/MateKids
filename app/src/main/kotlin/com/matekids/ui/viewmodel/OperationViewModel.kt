@@ -7,7 +7,7 @@ import com.matekids.data.repository.UserRepository
 import com.matekids.domain.model.Operation
 import com.matekids.domain.model.OperationType
 import com.matekids.domain.usecase.ResolveOperationUseCase
-import dagger.hilt.lifecycle.HiltViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
