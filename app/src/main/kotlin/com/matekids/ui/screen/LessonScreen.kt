@@ -1,7 +1,13 @@
 package com.matekids.ui.screen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,6 +36,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -106,7 +113,11 @@ fun LessonScreen(
 
         Spacer(Modifier.weight(1f))
 
-        AnimatedVisibility(visible = uiState.feedback != AnswerFeedback.NONE) {
+        AnimatedVisibility(
+            visible = uiState.feedback != AnswerFeedback.NONE,
+            enter = slideInVertically { it } + fadeIn(),
+            exit = slideOutVertically { it } + fadeOut()
+        ) {
             FeedbackPanel(
                 feedback = uiState.feedback,
                 explanation = uiState.explanation,
@@ -182,9 +193,17 @@ private fun NumberBox(value: Int?, selected: Int?, accent: Color) {
     val esHueco = value == null
     val mostrado = value ?: selected
 
+    // La casilla da un saltito al recibir la pieza, para que se vea que encajo.
+    val escala by animateFloatAsState(
+        targetValue = if (esHueco && mostrado != null) 1f else 0.92f,
+        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
+        label = "encaje"
+    )
+
     Box(
         modifier = Modifier
             .size(width = 72.dp, height = 72.dp)
+            .scale(if (esHueco) escala else 1f)
             .background(
                 color = when {
                     !esHueco -> MaterialTheme.colorScheme.surfaceVariant
@@ -262,9 +281,16 @@ private fun PieceButton(
         else -> MaterialTheme.colorScheme.outlineVariant
     }
 
+    val escalaPieza by animateFloatAsState(
+        targetValue = if (isSelected) 1.06f else 1f,
+        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
+        label = "pieza"
+    )
+
     Box(
         modifier = modifier
             .height(64.dp)
+            .scale(escalaPieza)
             .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
             .border(3.dp, borde, RoundedCornerShape(16.dp))
             .then(if (enabled) Modifier.clickable(onClick = onClick) else Modifier),
@@ -350,6 +376,21 @@ private fun LessonSummary(uiState: LessonUiState, onExit: () -> Unit) {
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
         )
+
+        Spacer(Modifier.height(20.dp))
+
+        Box(
+            modifier = Modifier
+                .background(PathColors.Problemas.copy(alpha = 0.18f), RoundedCornerShape(20.dp))
+                .padding(horizontal = 22.dp, vertical = 12.dp)
+        ) {
+            Text(
+                text = "+${uiState.xpEarned} XP",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black,
+                color = PathColors.Problemas
+            )
+        }
 
         Spacer(Modifier.height(36.dp))
 

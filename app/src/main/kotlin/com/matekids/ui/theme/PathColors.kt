@@ -12,13 +12,13 @@ import com.matekids.domain.model.Skill
  */
 object PathColors {
 
-    val Sumar = Color(0xFF22C55E)
-    val Restar = Color(0xFF3B82F6)
-    val SumarRestar = Color(0xFF06B6D4)
-    val Multiplicar = Color(0xFFF97316)
-    val Dividir = Color(0xFFA855F7)
-    val CalculoMental = Color(0xFFEC4899)
-    val Problemas = Color(0xFFEAB308)
+    val Sumar = Color(0xFF00D26A)
+    val Restar = Color(0xFF2E7DFF)
+    val SumarRestar = Color(0xFF00D3E0)
+    val Multiplicar = Color(0xFFFF7A00)
+    val Dividir = Color(0xFFB14BFF)
+    val CalculoMental = Color(0xFFFF3D8B)
+    val Problemas = Color(0xFFFFC300)
 
     /** Gris apagado de las lecciones aun cerradas. */
     val Locked = Color(0xFF9CA3AF)

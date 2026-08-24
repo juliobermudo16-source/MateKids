@@ -3,6 +3,7 @@ package com.matekids.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matekids.data.repository.PathProgressRepository
+import com.matekids.data.repository.UserRepository
 import com.matekids.domain.model.Exercise
 import com.matekids.domain.model.Lesson
 import com.matekids.domain.model.MathCurriculum
@@ -32,6 +33,7 @@ data class LessonUiState(
     /** Explicacion de por que ese numero es el correcto. */
     val explanation: String = "",
     val isFinished: Boolean = false,
+    val xpEarned: Int = 0,
     val isLoading: Boolean = true
 ) {
     val progress: Float
@@ -41,6 +43,9 @@ data class LessonUiState(
     val isPerfect: Boolean
         get() = total > 0 && correctCount == total
 }
+
+private const val XP_POR_ACIERTO = 10
+private const val XP_LECCION_PERFECTA = 20
 
 /**
  * Lleva una leccion de principio a fin.
@@ -52,7 +57,8 @@ data class LessonUiState(
 @HiltViewModel
 class LessonViewModel @Inject constructor(
     private val generateExercise: GenerateExerciseUseCase,
-    private val progressRepository: PathProgressRepository
+    private val progressRepository: PathProgressRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LessonUiState())
@@ -124,9 +130,31 @@ class LessonViewModel @Inject constructor(
                 correct = state.correctCount,
                 total = state.total
             )
+            otorgarXp(state)
         }
 
-        _uiState.value = state.copy(isFinished = true, position = state.total)
+        _uiState.value = state.copy(
+            isFinished = true,
+            position = state.total,
+            xpEarned = xpDe(state)
+        )
+    }
+
+    /**
+     * 10 XP por acierto a la primera, mas 20 de premio si la leccion sale
+     * perfecta. Sin la parte fija no habria diferencia entre resolverla y
+     * limitarse a reintentar hasta que salga.
+     */
+    private fun xpDe(state: LessonUiState): Int =
+        state.correctCount * XP_POR_ACIERTO + if (state.isPerfect) XP_LECCION_PERFECTA else 0
+
+    private suspend fun otorgarXp(state: LessonUiState) {
+        val ganados = xpDe(state)
+        val perfil = userRepository.getUserProfileSync() ?: return
+        val totalXp = perfil.totalXP + ganados
+        // 50 XP por nivel, como define UserProfile.getNextLevelXP().
+        val nivel = (totalXp / 50L).toInt() + 1
+        userRepository.updateXPAndLevel(totalXp, nivel)
     }
 
     /**
