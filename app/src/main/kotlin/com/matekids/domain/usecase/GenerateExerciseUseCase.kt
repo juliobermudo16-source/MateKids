@@ -1,34 +1,40 @@
 package com.matekids.domain.usecase
 
-import com.matekids.domain.model.MachineType
+import com.matekids.domain.model.Exercise
+import com.matekids.domain.model.Lesson
 import com.matekids.domain.model.OperationType
-import com.matekids.domain.model.RepairChallenge
+import com.matekids.domain.model.Skill
 import com.matekids.domain.model.SlotPosition
 import javax.inject.Inject
 import kotlin.random.Random
 
 /**
- * Fabrica los mecanismos rotos de cada maquina.
+ * Fabrica los ejercicios de una leccion.
  *
- * Los operandos y el resultado salen siempre del mismo calculo, y las piezas
+ * Los operandos y el resultado salen siempre del mismo calculo, y las opciones
  * senuelo se construyen a partir de errores tipicos (equivocarse por uno,
  * fallar el acarreo) en vez de numeros al azar: si los senuelos fueran
  * absurdos, se acertaria por descarte sin hacer la cuenta.
  */
-class GenerateRepairChallengeUseCase @Inject constructor() {
+class GenerateExerciseUseCase @Inject constructor() {
 
     companion object {
-        /** Piezas ofrecidas para arrastrar, contando la correcta. */
+        /** Opciones ofrecidas, contando la correcta. */
         const val PIECE_COUNT = 4
     }
 
+    /** Tanda completa de ejercicios para una leccion del camino. */
+    fun forLesson(lesson: Lesson, random: Random = Random.Default): List<Exercise> =
+        (1..lesson.exerciseCount).map {
+            invoke(lesson.skill, lesson.difficulty, random)
+        }
+
     operator fun invoke(
-        machine: MachineType,
+        skill: Skill,
         difficulty: Int = 1,
         random: Random = Random.Default
-    ): RepairChallenge {
-        // Las maquinas mixtas sortean el tipo en cada pieza.
-        val type = machine.operationType() ?: OperationType.entries.toList().random(random)
+    ): Exercise {
+        val type = operationFor(skill, random)
         val level = difficulty.coerceIn(1, 3)
 
         val (operand1, operand2, result) = operands(type, level, random)
@@ -39,7 +45,7 @@ class GenerateRepairChallengeUseCase @Inject constructor() {
             SlotPosition.RESULT -> result
         }
 
-        return RepairChallenge(
+        return Exercise(
             type = type,
             operand1 = operand1,
             operand2 = operand2,
@@ -47,6 +53,18 @@ class GenerateRepairChallengeUseCase @Inject constructor() {
             slot = slot,
             pieces = (decoys(correct, random) + correct).shuffled(random)
         )
+    }
+
+    /** Operacion que toca segun la destreza de la unidad. */
+    private fun operationFor(skill: Skill, random: Random): OperationType = when (skill) {
+        Skill.SUMAR -> OperationType.SUM
+        Skill.RESTAR -> OperationType.SUBTRACT
+        Skill.MULTIPLICAR -> OperationType.MULTIPLY
+        Skill.DIVIDIR -> OperationType.DIVIDE
+        Skill.SUMAR_RESTAR ->
+            listOf(OperationType.SUM, OperationType.SUBTRACT).random(random)
+        Skill.CALCULO_MENTAL, Skill.PROBLEMAS ->
+            OperationType.entries.toList().random(random)
     }
 
     /** Genera operandos validos: sin restas negativas ni divisiones inexactas. */

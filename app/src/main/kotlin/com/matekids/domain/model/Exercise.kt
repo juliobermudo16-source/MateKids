@@ -8,15 +8,15 @@ enum class SlotPosition {
 }
 
 /**
- * Una pieza rota de una maquina: un mecanismo al que le falta un engranaje.
+ * Un ejercicio: una operacion a la que le falta un numero.
  *
  * A diferencia de una pregunta con respuesta al final, el hueco puede caer en
  * cualquiera de los tres puntos ("? + 8 = 10", "2 + ? = 10", "2 + 8 = ?"), lo
  * que obliga a razonar al reves y no solo a calcular en linea recta.
  *
- * @param pieces valores candidatos que el nino puede arrastrar, ya mezclados.
+ * @param pieces opciones que se le ofrecen al nino, ya mezcladas.
  */
-data class RepairChallenge(
+data class Exercise(
     val type: OperationType,
     val operand1: Int,
     val operand2: Int,
@@ -24,7 +24,7 @@ data class RepairChallenge(
     val slot: SlotPosition,
     val pieces: List<Int>
 ) {
-    /** Valor del engranaje que encaja en el hueco. */
+    /** Valor que completa correctamente la operacion. */
     val missingValue: Int
         get() = when (slot) {
             SlotPosition.FIRST -> operand1
@@ -42,7 +42,7 @@ data class RepairChallenge(
     }
 
     /**
-     * Las tres casillas del mecanismo, con null donde falta la pieza. La UI
+     * Las tres casillas de la operacion, con null donde falta el numero. La UI
      * decide como dibujar el hueco.
      */
     fun slots(): List<Int?> = listOf(
@@ -52,7 +52,7 @@ data class RepairChallenge(
     )
 
     /**
-     * Explicacion breve de por que encaja esa pieza. La especificacion pide
+     * Explicacion breve de por que ese numero es el correcto. La especificacion pide
      * feedback educativo, no un simple "incorrecto".
      */
     fun explanation(): String {
