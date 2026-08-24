@@ -34,3 +34,6 @@ google-services.json
 # Miscellaneous
 .DS_Store
 .vs/
+
+# Documentos de trabajo en Word: se quedan en local
+*.docx
