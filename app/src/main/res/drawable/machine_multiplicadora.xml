@@ -15,36 +15,23 @@
         android:strokeWidth="3"
         android:pathData="M 40 40 L 160 40 L 160 160 L 40 160 Z" />
     <!-- Display -->
-    <rect
-        android:x="50"
-        android:y="50"
-        android:width="100"
-        android:height="40"
-        android:fill="#E5E7EB" />
+    <path
+        android:fillColor="#E5E7EB"
+        android:pathData="M50,50 h100 v40 h-100 z" />
     <!-- Multiply Symbol -->
-    <line
-        android:x1="80"
-        android:y1="85"
-        android:x2="120"
-        android:y2="115"
-        android:stroke="#000"
-        android:strokeWidth="2" />
-    <line
-        android:x1="120"
-        android:y1="85"
-        android:x2="80"
-        android:y2="115"
-        android:stroke="#000"
-        android:strokeWidth="2" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="2"
+        android:pathData="M80,85 L120,115" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="2"
+        android:pathData="M120,85 L80,115" />
     <!-- Power Nodes -->
-    <circle
-        android:cx="70"
-        android:cy="140"
-        android:r="6"
-        android:fill="#10B981" />
-    <circle
-        android:cx="130"
-        android:cy="140"
-        android:r="6"
-        android:fill="#10B981" />
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M64,140 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 z" />
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M124,140 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 z" />
 </vector>

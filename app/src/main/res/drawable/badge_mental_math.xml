@@ -4,11 +4,24 @@
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="#8B5CF6" />
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="none" android:stroke="#6D28D9" android:strokeWidth="2" />
-    <circle android:cx="50" android:cy="50" android:r="20" android:fill="#C084FC" />
-    <circle android:cx="38" android:cy="35" android:r="3" android:fill="#FCD34D" />
-    <circle android:cx="62" android:cy="40" android:r="2" android:fill="#FCD34D" />
-    <circle android:cx="50" android:cy="65" android:r="2" android:fill="#FCD34D" />
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:strokeColor="#6D28D9"
+        android:strokeWidth="2"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:fillColor="#C084FC"
+        android:pathData="M30,50 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0 z" />
+    <path
+        android:fillColor="#FCD34D"
+        android:pathData="M35,35 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 z" />
+    <path
+        android:fillColor="#FCD34D"
+        android:pathData="M60,40 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 z" />
+    <path
+        android:fillColor="#FCD34D"
+        android:pathData="M48,65 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0 z" />
     <path android:fillColor="#FCD34D" android:pathData="M 50 10 L 55 25 L 70 25 L 58 35 L 63 50 L 50 40 L 37 50 L 42 35 L 30 25 L 45 25 Z" />
 </vector>

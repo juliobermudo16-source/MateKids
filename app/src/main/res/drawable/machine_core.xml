@@ -5,66 +5,42 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
     <!-- Outer reactor ring -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="80"
-        android:fill="none"
-        android:stroke="#DC2626"
-        android:strokeWidth="4" />
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="4"
+        android:pathData="M20,100 a80,80 0 1,0 160,0 a80,80 0 1,0 -160,0 z" />
     <!-- Middle ring -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="60"
-        android:fill="none"
-        android:stroke="#F97316"
-        android:strokeWidth="3" />
+    <path
+        android:strokeColor="#F97316"
+        android:strokeWidth="3"
+        android:pathData="M40,100 a60,60 0 1,0 120,0 a60,60 0 1,0 -120,0 z" />
     <!-- Inner core -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="40"
-        android:fill="#FBBF24" />
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M60,100 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0 z" />
     <!-- Core glow/energy -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="35"
-        android:fill="#FCD34D" />
+    <path
+        android:fillColor="#FCD34D"
+        android:pathData="M65,100 a35,35 0 1,0 70,0 a35,35 0 1,0 -70,0 z" />
     <!-- Center point -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="15"
-        android:fill="#DC2626" />
+    <path
+        android:fillColor="#DC2626"
+        android:pathData="M85,100 a15,15 0 1,0 30,0 a15,15 0 1,0 -30,0 z" />
     <!-- Energy lines -->
-    <line
-        android:x1="100"
-        android:y1="30"
-        android:x2="100"
-        android:y2="50"
-        android:stroke="#DC2626"
-        android:strokeWidth="2" />
-    <line
-        android:x1="100"
-        android:y1="150"
-        android:x2="100"
-        android:y2="170"
-        android:stroke="#DC2626"
-        android:strokeWidth="2" />
-    <line
-        android:x1="30"
-        android:y1="100"
-        android:x2="50"
-        android:y2="100"
-        android:stroke="#DC2626"
-        android:strokeWidth="2" />
-    <line
-        android:x1="150"
-        android:y1="100"
-        android:x2="170"
-        android:y2="100"
-        android:stroke="#DC2626"
-        android:strokeWidth="2" />
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="2"
+        android:pathData="M100,30 L100,50" />
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="2"
+        android:pathData="M100,150 L100,170" />
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="2"
+        android:pathData="M30,100 L50,100" />
+    <path
+        android:strokeColor="#DC2626"
+        android:strokeWidth="2"
+        android:pathData="M150,100 L170,100" />
 </vector>

@@ -5,13 +5,30 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
     <!-- Double circle for prestige -->
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="#FFD700" />
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="none" android:stroke="#FCD34D" android:strokeWidth="3" />
-    <circle android:cx="50" android:cy="50" android:r="40" android:fill="none" android:stroke="#DAA520" android:strokeWidth="2" />
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:strokeColor="#FCD34D"
+        android:strokeWidth="3"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:strokeColor="#DAA520"
+        android:strokeWidth="2"
+        android:pathData="M10,50 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0 z" />
     <!-- Crown -->
     <path android:fillColor="#DC2626" android:pathData="M 30 55 L 35 35 L 45 45 L 50 30 L 55 45 L 65 35 L 70 55 Z" />
     <!-- Light rays -->
-    <line android:x1="50" android:y1="10" android:x2="50" android:y2="25" android:stroke="#FFD700" android:strokeWidth="2" />
-    <line android:x1="75" android:y1="30" android:x2="65" android:y2="40" android:stroke="#FFD700" android:strokeWidth="2" />
-    <line android:x1="25" android:y1="30" android:x2="35" android:y2="40" android:stroke="#FFD700" android:strokeWidth="2" />
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2"
+        android:pathData="M50,10 L50,25" />
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2"
+        android:pathData="M75,30 L65,40" />
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2"
+        android:pathData="M25,30 L35,40" />
 </vector>

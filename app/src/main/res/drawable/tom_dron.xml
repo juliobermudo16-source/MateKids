@@ -6,49 +6,24 @@
     android:viewportHeight="120">
 
     <!-- Cuerpo central (esfera) -->
-    <circle
-        android:cx="60"
-        android:cy="60"
-        android:r="25"
-        android:fillColor="#5E60C0" />
-
+    <path
+        android:pathData="M35,60 a25,25 0 1,0 50,0 a25,25 0 1,0 -50,0 z" />
     <!-- Ojos -->
-    <circle
-        android:cx="50"
-        android:cy="55"
-        android:r="4"
-        android:fillColor="#FFFFFF" />
-
-    <circle
-        android:cx="70"
-        android:cy="55"
-        android:r="4"
-        android:fillColor="#FFFFFF" />
-
+    <path
+        android:pathData="M46,55 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0 z" />
+    <path
+        android:pathData="M66,55 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0 z" />
     <!-- Boca -->
     <path
         android:fillColor="#FFFFFF"
         android:pathData="M55,70 Q60,75 65,70" />
 
     <!-- Propelas (arriba) -->
-    <rect
-        android:x="55"
-        android:y="25"
-        android:width="10"
-        android:height="20"
-        android:fillColor="#F59E0B" />
-
-    <rect
-        android:x="55"
-        android:y="75"
-        android:width="10"
-        android:height="20"
-        android:fillColor="#F59E0B" />
-
+    <path
+        android:pathData="M55,25 h10 v20 h-10 z" />
+    <path
+        android:pathData="M55,75 h10 v20 h-10 z" />
     <!-- Luz de energía -->
-    <circle
-        android:cx="60"
-        android:cy="45"
-        android:r="3"
-        android:fillColor="#10B981" />
+    <path
+        android:pathData="M57,45 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 z" />
 </vector>

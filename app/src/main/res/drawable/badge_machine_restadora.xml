@@ -4,8 +4,16 @@
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="#F59E0B" />
-    <circle android:cx="50" android:cy="50" android:r="45" android:fill="none" android:stroke="#D97706" android:strokeWidth="2" />
-    <line android:x1="35" android:y1="50" android:x2="65" android:y2="50" android:stroke="#FFF" android:strokeWidth="3" />
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:strokeColor="#D97706"
+        android:strokeWidth="2"
+        android:pathData="M5,50 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0 z" />
+    <path
+        android:strokeColor="#FFF"
+        android:strokeWidth="3"
+        android:pathData="M35,50 L65,50" />
     <path android:fillColor="#FCD34D" android:pathData="M 50 20 L 55 35 L 70 35 L 58 45 L 63 60 L 50 50 L 37 60 L 42 45 L 30 35 L 45 35 Z" />
 </vector>

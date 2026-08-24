@@ -5,45 +5,29 @@
     android:viewportWidth="200"
     android:viewportHeight="200">
     <!-- Brain-like shape (circle with bumps) -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="70"
-        android:fill="#8B5CF6" />
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M30,100 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0 z" />
     <!-- Border -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="70"
-        android:fill="none"
-        android:stroke="#6D28D9"
-        android:strokeWidth="3" />
+    <path
+        android:strokeColor="#6D28D9"
+        android:strokeWidth="3"
+        android:pathData="M30,100 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0 z" />
     <!-- Thinking lines -->
-    <circle
-        android:cx="70"
-        android:cy="70"
-        android:r="8"
-        android:fill="none"
-        android:stroke="#FCD34D"
-        android:strokeWidth="2" />
-    <circle
-        android:cx="130"
-        android:cy="80"
-        android:r="6"
-        android:fill="none"
-        android:stroke="#FCD34D"
-        android:strokeWidth="2" />
-    <circle
-        android:cx="100"
-        android:cy="120"
-        android:r="5"
-        android:fill="none"
-        android:stroke="#FCD34D"
-        android:strokeWidth="2" />
+    <path
+        android:strokeColor="#FCD34D"
+        android:strokeWidth="2"
+        android:pathData="M62,70 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0 z" />
+    <path
+        android:strokeColor="#FCD34D"
+        android:strokeWidth="2"
+        android:pathData="M124,80 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 z" />
+    <path
+        android:strokeColor="#FCD34D"
+        android:strokeWidth="2"
+        android:pathData="M95,120 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0 z" />
     <!-- Core glow -->
-    <circle
-        android:cx="100"
-        android:cy="100"
-        android:r="30"
-        android:fill="#C084FC" />
+    <path
+        android:fillColor="#C084FC"
+        android:pathData="M70,100 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 z" />
 </vector>
