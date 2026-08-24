@@ -44,19 +44,39 @@ class OperationViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(isLoading = true)
 
                 val allOps = operationRepository.getOperationCount()
+
+                // Los operandos y la respuesta tienen que salir del mismo
+                // calculo: generarlos por separado producia respuestas falsas.
+                val (operand1, operand2, answer) = when (operationType) {
+                    OperationType.SUM -> {
+                        val a = (1..20).random()
+                        val b = (1..20).random()
+                        Triple(a, b, a + b)
+                    }
+                    OperationType.SUBTRACT -> {
+                        // El minuendo manda para no dar resultados negativos.
+                        val a = (1..20).random()
+                        val b = (1..a).random()
+                        Triple(a, b, a - b)
+                    }
+                    OperationType.MULTIPLY -> {
+                        val a = (1..12).random()
+                        val b = (1..12).random()
+                        Triple(a, b, a * b)
+                    }
+                    OperationType.DIVIDE -> {
+                        // Se construye desde el resultado para que sea exacta.
+                        val divisor = (2..10).random()
+                        val cociente = (1..10).random()
+                        Triple(divisor * cociente, divisor, cociente)
+                    }
+                }
+
                 val nextOp = Operation(
                     type = operationType,
-                    operand1 = (1..20).random(),
-                    operand2 = (1..20).random(),
-                    correctAnswer = when (operationType) {
-                        OperationType.SUM -> (1..20).random() + (1..20).random()
-                        OperationType.SUBTRACT -> kotlin.math.abs((1..20).random() - (1..20).random())
-                        OperationType.MULTIPLY -> (1..12).random() * (1..12).random()
-                        OperationType.DIVIDE -> {
-                            val divisor = (2..10).random()
-                            ((1..10).random() * divisor)
-                        }
-                    }
+                    operand1 = operand1,
+                    operand2 = operand2,
+                    correctAnswer = answer
                 )
 
                 _uiState.value = _uiState.value.copy(
