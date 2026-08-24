@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Reglas de extraccion de datos (Android 12 o superior).
+
+    El progreso del nino no sale del dispositivo: se excluye de la copia en la
+    nube. Si se permite en cambio la transferencia directa entre moviles, que
+    es local, para no perder el avance al cambiar de telefono.
+-->
 <data-extraction-rules>
-    <domain-config>
-        <domain includeSubdomains="true">example.com</domain>
-        <trust-anchors>
-            <certificates src="system" />
-        </trust-anchors>
-    </domain-config>
+    <cloud-backup>
+        <exclude domain="root" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+        <exclude domain="file" />
+    </cloud-backup>
+
+    <device-transfer>
+        <include domain="database" path="matekids.db" />
+        <include domain="sharedpref" path="." />
+    </device-transfer>
 </data-extraction-rules>

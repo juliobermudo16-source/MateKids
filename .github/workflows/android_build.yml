@@ -27,9 +27,10 @@ jobs:
           chmod +x gradlew
           ./gradlew clean assembleDebug --stacktrace
 
+      # Tambien sin continue-on-error: con la marca puesta, lintVitalRelease
+      # fallaba en silencio y el APK de release no llegaba a generarse.
       - name: Build APK Release
         run: ./gradlew assembleRelease --stacktrace
-        continue-on-error: true
 
       # Sin continue-on-error a proposito: si los tests fallan el build tiene
       # que ponerse en rojo. Con la marca puesta el CI salia verde durante

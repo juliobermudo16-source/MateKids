@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Reglas de copia de seguridad para Android 11 o inferior.
+
+    Mismo criterio que data_extraction_rules.xml: los datos del nino se quedan
+    en el dispositivo y no se copian a la nube.
+-->
 <full-backup-content>
-    <include domain="database" path="matekids.db" />
-    <include domain="sharedpref" path="." />
+    <exclude domain="database" path="matekids.db" />
+    <exclude domain="sharedpref" path="." />
 </full-backup-content>
