@@ -3,6 +3,7 @@ package com.matekids.ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -300,5 +301,24 @@ fun ProfileScreen(
                 }
             }
         }
+    }
+}
+
+/**
+ * Una linea de estadistica: etiqueta a la izquierda, valor a la derecha.
+ *
+ * Vivia en StatsScreen, que se elimino con el cambio de rumbo; se recupera
+ * aqui, que es donde se sigue usando.
+ */
+@Composable
+private fun StatRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(label, fontSize = 14.sp)
+        Text(value, fontSize = 14.sp, fontWeight = FontWeight.Bold)
     }
 }
