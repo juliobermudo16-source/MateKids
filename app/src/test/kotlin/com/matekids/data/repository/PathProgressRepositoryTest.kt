@@ -1,37 +1,13 @@
 package com.matekids.data.repository
 
-import com.matekids.data.local.dao.LessonProgressDao
-import com.matekids.data.local.entity.LessonProgressEntity
 import com.matekids.domain.model.MathCurriculum
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.matekids.util.FakeLessonProgressDao
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-
-/** DAO en memoria: para probar las reglas no hace falta levantar Room. */
-private class FakeLessonProgressDao : LessonProgressDao {
-    val filas = MutableStateFlow<Map<String, LessonProgressEntity>>(emptyMap())
-
-    override fun observeAll(): Flow<List<LessonProgressEntity>> =
-        filas.map { it.values.toList() }
-
-    override suspend fun findById(lessonId: String): LessonProgressEntity? = filas.value[lessonId]
-
-    override suspend fun save(progress: LessonProgressEntity) {
-        filas.value = filas.value + (progress.lessonId to progress)
-    }
-
-    override suspend fun completedCount(): Int = filas.value.size
-
-    override suspend fun clear() {
-        filas.value = emptyMap()
-    }
-}
 
 class PathProgressRepositoryTest {
 

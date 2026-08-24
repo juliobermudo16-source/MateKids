@@ -151,10 +151,11 @@ class LessonViewModel @Inject constructor(
     private suspend fun otorgarXp(state: LessonUiState) {
         val ganados = xpDe(state)
         val perfil = userRepository.getUserProfileSync() ?: return
-        val totalXp = perfil.totalXP + ganados
+        val nuevoTotal = perfil.totalXP + ganados
         // 50 XP por nivel, como define UserProfile.getNextLevelXP().
-        val nivel = (totalXp / 50L).toInt() + 1
-        userRepository.updateXPAndLevel(totalXp, nivel)
+        val nivel = (nuevoTotal / 50L).toInt() + 1
+        // Se pasan los XP ganados, no el total: la consulta ya hace la suma.
+        userRepository.updateXPAndLevel(ganados, nivel)
     }
 
     /**
